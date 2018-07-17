@@ -13,7 +13,7 @@ Unfold blocks marked with '[' and ']'
 <body>
 <h3>Example</h3>
 <pre></code>
-<?php ob_start();?>
+<?php Css::begin();?>
 header [
     h1 {font-size:2em;}
     h2 {font-size:1.5em;}
@@ -22,7 +22,7 @@ header [
         :hover {color: red;}
     ]
 ]
-<?=Css::compile(ob_get_clean())?>
+<?php Css::end();?>
 </code></pre>
 </body>
 </html>
@@ -43,7 +43,7 @@ Unfold blocks marked with '[' and ']' and set variables
 <body>
 <h3>Example</h3>
 <pre></code>
-<?php ob_start();?>
+<?php Css::begin();?>
 header [
     h1 {font-size:2em;}
     h2 {font-size:1.5em;}
@@ -52,7 +52,7 @@ header [
         :hover {color: $hrefHoverColor;}
     ]
 ]
-<?=Css::compile(ob_get_clean(),[
+<?php Css::end([
     'hrefColor' => 'blue',
     'hrefHoverColor' => 'red',
 ])?>
@@ -68,7 +68,44 @@ header h1{font-size:2em}header h2{font-size:1.5em}header a{color:blue}header a:h
 ```
 
 ### Example 3
-By default compile method returns minified CSS, to disable minification pass false as third param to compile method
+By default compile method returns minified CSS, to disable minification pass false as second param to end method
+```
+<?php include 'Css.php';?>
+<html>
+<head>
+</head>
+<body>
+<h3>Example</h3>
+<pre></code>
+<?php Css::begin();?>
+header [
+    h1 {font-size:2em;}
+    h2 {font-size:1.5em;}
+    a [
+        {color: $hrefColor;}
+        :hover {color: $hrefHoverColor;}
+    ]
+]
+<?php Css::end([
+    'hrefColor' => 'blue',
+    'hrefHoverColor' => 'red',
+], false)?>
+</code></pre>
+</body>
+</html>
+```
+Will produce
+```
+Example
+
+header h1 {font-size:2em;}
+header h2 {font-size:1.5em;}
+header a {color: blue;}
+header a:hover {color: red;}
+```
+
+### Example 4
+You can also use "compile" method if you get css from some where else
 ```
 <?php include 'Css.php';?>
 <html>
@@ -86,10 +123,15 @@ header [
         :hover {color: $hrefHoverColor;}
     ]
 ]
-<?=Css::compile(ob_get_clean(),[
+<?php 
+$css = ob_get_clean();
+
+echo Css::compile($css, [
     'hrefColor' => 'blue',
     'hrefHoverColor' => 'red',
-], false)?>
+], false)
+
+?>
 </code></pre>
 </body>
 </html>
