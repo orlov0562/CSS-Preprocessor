@@ -214,7 +214,6 @@ Will produce
 ```
 Example
 
-
 header h1 {font-size:2em;}
 header h2 {font-size:1.5em;}
 header a {color: blue;}
