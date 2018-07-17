@@ -1,5 +1,12 @@
 # CSS-Preprocessor
+
 My simple CSS preprocessor that support css path folding and variables.
+
+Yes, I know about SaSS, LESS, Stylus and other, but don't want shoot sparrows with a cannon.
+
+The another cool thing is that this class not needs any dependencies like SASS and works well with AMP (where you can't execute JS).
+
+Good choice for small projects where you need full control and don't want waste time for simple css improvements.
 
 ## Usage
 
@@ -27,7 +34,7 @@ header [
 </body>
 </html>
 ```
-Will produce
+Will produce minimized CSS
 ```
 Example
 
@@ -60,7 +67,7 @@ header [
 </body>
 </html>
 ```
-Will produce
+Will produce minimized CSS
 ```
 Example
 
