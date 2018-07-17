@@ -104,7 +104,7 @@ header a {color: blue;}
 header a:hover {color: red;}
 ```
 
-### Example 3
+### Example 4
 By default "end" method output CSS, to return it pass "false" as THIRD param
 ```
 <?php include 'Css.php';?>
