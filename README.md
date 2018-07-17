@@ -183,6 +183,7 @@ header a {color: blue;}
 header a:hover {color: red;}
 ```
 ### Example 6
+It supports more than one css path definition, eg "body,footer { ... }"
 ```
 <?php include 'Css.php';?>
 <html>
