@@ -1,3 +1,12 @@
+<?php
+/**
+ * Simple CSS Preprocessor
+ * Author: Vitaliy Orlov
+ * Version: 1.0
+ * Homepage: https://github.com/orlov0562/CSS-Preprocessor
+ * Usage examples: https://github.com/orlov0562/CSS-Preprocessor/blob/master/README.md
+ */
+
 class Css {
 
     public static function compile($css, $vars=[], $minify=true) {
