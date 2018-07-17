@@ -68,7 +68,7 @@ header h1{font-size:2em}header h2{font-size:1.5em}header a{color:blue}header a:h
 ```
 
 ### Example 3
-By default compile method returns minified CSS, to disable minification pass false as second param to end method
+By default "end" method return minified CSS, to disable minification pass "false" as SECOND param
 ```
 <?php include 'Css.php';?>
 <html>
@@ -104,7 +104,44 @@ header a {color: blue;}
 header a:hover {color: red;}
 ```
 
-### Example 4
+### Example 3
+By default "end" method output CSS, to return it pass "false" as THIRD param
+```
+<?php include 'Css.php';?>
+<html>
+<head>
+</head>
+<body>
+<h3>Example</h3>
+<pre></code>
+<?php Css::begin();?>
+header [
+    h1 {font-size:2em;}
+    h2 {font-size:1.5em;}
+    a [
+        {color: $hrefColor;}
+        :hover {color: $hrefHoverColor;}
+    ]
+]
+<?php echo Css::end([
+    'hrefColor' => 'blue',
+    'hrefHoverColor' => 'red',
+], false, false)?>
+</code></pre>
+</body>
+</html>
+```
+Will produce
+```
+Example
+
+header h1 {font-size:2em;}
+header h2 {font-size:1.5em;}
+header a {color: blue;}
+header a:hover {color: red;}
+```
+
+### Example 5
 You can also use "compile" method if you get css from some where else
 ```
 <?php include 'Css.php';?>
