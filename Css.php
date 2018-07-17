@@ -32,27 +32,41 @@ class Css {
     }
 
     protected static function unfoldBlocks($css) {
-    	if (preg_match('~^  \s*  ([^{}\[]+)  \[  (.+)  \]~msx', $css, $regs)) {
-    		$basePath = trim($regs[1]);
-    		$cssBlock = trim($regs[2]);
-    		if (self::hasFoldedBlocks($css)) {
-    		    $cssBlock = self::unfoldBlocks($cssBlock);
-    		}
+    	while (preg_match('~(?<=^|}|\*/) (\s*) ([^*{}\[]+)  \[  ([^\[\]]+)  \]~msx', $css, $regs)) {
+    		$basePathes = explode(',',$regs[2]);
+    		$cssBlock = trim($regs[3]);
     		$unfoldedCss = '';
     		if (preg_match_all('~(?<=^|}) ([^{]+)? (\{[^}]+\})~Umx', $cssBlock, $sregs)) {
     			for ($i=0; $i<count($sregs[0]); $i++) {
-    				$subPath = trim($sregs[1][$i]);
-    				$subCss = trim($sregs[2][$i]);
-    				if (!$subPath) {
-    					$unfoldedCss.= $basePath.' '.$subCss.PHP_EOL;
-    				} elseif(preg_match('~^:~',$subPath)) {
-    					$unfoldedCss.= $basePath.$subPath.' '.$subCss.PHP_EOL;
+    				$subPathes = $sregs[1][$i]
+    				             ? explode(',', $sregs[1][$i])
+    				             : []
+    				;
+    				$subCss = $sregs[2][$i];
+
+    				if (!$subPathes) {
+    					$unfoldedCss .= implode(',', $basePathes).' '.$subCss.PHP_EOL;
     				} else {
-    					$unfoldedCss.= $basePath.' '.$subPath.' '.$subCss.PHP_EOL;
+    				    $combinedPathes = implode(',', array_map(function($subPath) use ($basePathes){
+    				        $ret = '';
+    				        if(preg_match('~^\s*:~',$subPath)) {
+            				    $ret = implode(', ', array_map(function($basePath) use ($subPath){
+            				            return rtrim($basePath).trim($subPath);
+            				    }, $basePathes));
+    				        } else {
+            				    $ret = implode(', ', array_map(function($basePath) use ($subPath){
+            				            return rtrim($basePath).' '.trim($subPath);
+            				    }, $basePathes));
+    				        }
+    				        return $ret;
+    				    }, $subPathes));
+
+    				    $unfoldedCss .= $combinedPathes.' '.$subCss.PHP_EOL;
     				}
     			}
     		}
-    		$css = str_replace($regs[0], $unfoldedCss, $css);
+
+    		$css = str_replace(trim($regs[0]), $unfoldedCss, $css);
     	}
     	return $css;
     }
