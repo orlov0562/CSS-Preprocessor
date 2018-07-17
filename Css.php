@@ -80,6 +80,7 @@ class Css {
     }
 
     protected static function addVars($css, $vars) {
+        krsort($vars);
         $keys = array_keys($vars);
         $keys = array_map(function($key){return '$'.$key;}, $keys);
         $css = str_replace($keys, $vars, $css);
