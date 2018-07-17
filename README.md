@@ -202,7 +202,7 @@ header [
     ]
 ]    
 body, footer [
-    {background}
+    {background: none;}
     a, .btn {color:green;}    
 ]
 <?php Css::end([], false);?>
@@ -220,6 +220,6 @@ header h2 {font-size:1.5em;}
 header a {color: blue;}
 header a:hover {color: red;}
     
-body, footer  {background}
+body, footer  {background: none;}
 body a,  footer a,body .btn,  footer .btn {color:green;}
 ```
