@@ -9,6 +9,15 @@
 
 class Css {
 
+    public static function begin() {
+        ob_start();
+    }
+
+    public static function end($vars=[], $minify=true, $output=true){
+        $css = self::compile(ob_get_clean(), $vars, $minify);
+        if ($output) echo $css; else return $css;
+    }
+
     public static function compile($css, $vars=[], $minify=true) {
         if (self::hasFoldedBlocks($css)) {
             $css = self::unfoldBlocks($css);
