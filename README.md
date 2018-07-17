@@ -1,5 +1,5 @@
 # CSS-Preprocessor
-My simple CSS preprocessor. That support css path folding and variables.
+My simple CSS preprocessor that support css path folding and variables.
 
 ## Usage
 
