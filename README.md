@@ -229,3 +229,29 @@ header a:hover {color: red;}
 body, footer  {background: none;}
 body a,  footer a,body .btn,  footer .btn {color:green;}
 ```
+### Example 7
+```
+<?php include 'Css.php';?>
+<html>
+<head>
+</head>
+<body>
+<h3>Example</h3>
+<pre></code>
+<?php Css::begin();?>
+header > [
+    h1 {font-size:2em;}
+    h2 {font-size:1.5em;}
+]    
+<?php Css::end([], false);?>
+</code></pre>
+</body>
+</html>
+```
+Will produce
+```
+Example
+
+header > h1 {font-size:2em;}
+header > h2 {font-size:1.5em;}
+```
